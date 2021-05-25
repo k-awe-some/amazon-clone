@@ -1,4 +1,4 @@
-import NextHead from "next/head";
+import NextHead from "next/head.js";
 import { string } from "prop-types";
 
 const defaultDescription = "";
