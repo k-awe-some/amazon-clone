@@ -30,7 +30,7 @@ const HeaderTop = (props: HeaderTopProps) => {
       {/* Items */}
       <div className="text-white flex items-center text-sm space-x-4 ml-6">
         <div className="link">
-          <p>Hello, Kay</p>
+          <p>Hello, User</p>
           <p className="font-extrabold md:text-sm">Account</p>
         </div>
 
