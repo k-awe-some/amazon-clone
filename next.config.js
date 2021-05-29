@@ -6,6 +6,10 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ["pngimg.com", "images-eu.ssl-images-amazon.com"],
+    domains: [
+      "pngimg.com",
+      "images-eu.ssl-images-amazon.com",
+      "fakestoreapi.com",
+    ],
   },
 };
