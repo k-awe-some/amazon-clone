@@ -9,7 +9,7 @@ type ProductFeedProps = {
 const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {
   console.log(products);
   return (
-    <div className="mx-auto grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
+    <div className="mx-5 grid grid-flow-row-dense gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
       {products
         .slice(0, 4)
         .map(({ id, category, title, description, image, price }) => (
