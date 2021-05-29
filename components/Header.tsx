@@ -1,13 +1,13 @@
-import TopNav from "./HeaderTop";
+import HeaderTop from "./HeaderTop";
+import HeaderBottom from "./HeaderBottom";
 
 type HeaderProps = {};
 
 const Header = (props: HeaderProps) => {
   return (
     <header>
-      {/* Bottom nav */}
-      <TopNav />
-      Header
+      <HeaderTop />
+      <HeaderBottom />
     </header>
   );
 };
