@@ -5,4 +5,7 @@ module.exports = {
     };
     return config;
   },
+  images: {
+    domains: ["pngimg.com"],
+  },
 };
