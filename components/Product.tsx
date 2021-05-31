@@ -22,8 +22,8 @@ const Product: React.FC<ProductProps> = ({
   image,
   price,
 }) => {
-  const [rating, setRating] = useState(0);
-  const [prime, setPrime] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+  const [prime, setPrime] = useState<boolean>(false);
 
   useEffect(() => {
     setRating(
