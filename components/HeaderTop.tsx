@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { signIn, signOut, useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 type HeaderTopProps = {};
 
 const HeaderTop = (props: HeaderTopProps) => {
   const [session] = useSession();
+  const router = useRouter();
 
   return (
     <div className="flex items-center bg-amazon_blue px-5 py-2 flex-grow">
@@ -18,6 +20,7 @@ const HeaderTop = (props: HeaderTopProps) => {
           height={55.5}
           objectFit="contain"
           className="cursor-pointer"
+          onClick={() => router.push("/")}
         />
       </div>
 
@@ -47,7 +50,10 @@ const HeaderTop = (props: HeaderTopProps) => {
           <p className="font-extrabold md:text-sm">& Orders</p>
         </div>
 
-        <div className="link relative flex items-end">
+        <div
+          className="link relative flex items-end"
+          onClick={() => router.push("/checkout")}
+        >
           <span className="absolute top-0 right-0 md:right-6 h-5 w-5 bg-yellow-400 text-center rounded-full text-black">
             0
           </span>
