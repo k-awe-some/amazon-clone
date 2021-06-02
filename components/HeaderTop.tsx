@@ -2,12 +2,16 @@ import Image from "next/image";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { signIn, signOut, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
+import { selectItems } from "../store/slices/cartSlice";
 
 type HeaderTopProps = {};
 
 const HeaderTop = (props: HeaderTopProps) => {
   const [session] = useSession();
   const router = useRouter();
+  const items = useSelector(selectItems);
 
   return (
     <div className="flex items-center bg-amazon_blue px-5 py-2 flex-grow">
@@ -39,7 +43,7 @@ const HeaderTop = (props: HeaderTopProps) => {
           <p>Hello, {session ? session.user.name : "Sign in"}</p>
           <p
             className="font-extrabold md:text-sm"
-            onClick={!session ? signIn : signOut}
+            onClick={() => (!session ? signIn() : signOut())}
           >
             Account
           </p>
@@ -55,7 +59,7 @@ const HeaderTop = (props: HeaderTopProps) => {
           onClick={() => router.push("/checkout")}
         >
           <span className="absolute top-0 right-0 md:right-6 h-5 w-5 bg-yellow-400 text-center rounded-full text-black">
-            0
+            {items.length}
           </span>
           <ShoppingCartIcon className="h-10" />
           <p className="hidden md:inline font-extrabold md:text-sm">Cart</p>

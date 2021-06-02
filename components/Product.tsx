@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
+import { useDispatch } from "react-redux";
+
+import { addToCart } from "../store/slices/cartSlice";
 
 export type ProductProps = {
   id?: number;
@@ -16,6 +19,7 @@ const MAX_RATING = 5;
 const MIN_RATING = 1;
 
 const Product: React.FC<ProductProps> = ({
+  id,
   category,
   title,
   description,
@@ -24,6 +28,11 @@ const Product: React.FC<ProductProps> = ({
 }) => {
   const [rating, setRating] = useState<number>(0);
   const [prime, setPrime] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  const addItemToCart = () => {
+    dispatch(addToCart({ id, category, title, description, image, price }));
+  };
 
   useEffect(() => {
     setRating(
@@ -66,7 +75,9 @@ const Product: React.FC<ProductProps> = ({
           </div>
         )}
 
-        <button className="mt-auto button">Add to cart</button>
+        <button className="mt-auto button" onClick={addItemToCart}>
+          Add to cart
+        </button>
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ type ProductFeedProps = {
 };
 
 const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {
-  console.log(products);
   return (
     <div className="mx-5 grid grid-flow-row-dense gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
       {products
@@ -15,6 +14,7 @@ const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {
         .map(({ id, category, title, description, image, price }) => (
           <Product
             key={id}
+            id={id}
             category={category}
             title={title}
             description={description}
@@ -35,6 +35,7 @@ const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {
           .map(({ id, category, title, description, image, price }) => (
             <Product
               key={id}
+              id={id}
               category={category}
               title={title}
               description={description}
@@ -49,6 +50,7 @@ const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {
         .map(({ id, category, title, description, image, price }) => (
           <Product
             key={id}
+            id={id}
             category={category}
             title={title}
             description={description}
