@@ -5,10 +5,10 @@ import Head from "../components/Head";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import ProductFeed from "../components/ProductFeed";
-import { ProductProps } from "../components/Product";
+import { Item } from "../shared/interfaces";
 
 type HomeProps = {
-  products: ProductProps[];
+  products: Item[];
 };
 
 const Home: React.FC<HomeProps> = ({ products }) => (

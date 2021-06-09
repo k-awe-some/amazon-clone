@@ -1,9 +1,10 @@
 import React from "react";
 
-import Product, { ProductProps } from "./Product";
+import Product from "./Product";
+import { Item } from "../shared/interfaces";
 
 type ProductFeedProps = {
-  products: ProductProps[];
+  products: Item[];
 };
 
 const ProductFeed: React.FC<ProductFeedProps> = ({ products }) => {

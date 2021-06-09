@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/solid";
 import Currency from "react-currency-formatter";
 import { useDispatch } from "react-redux";
 
-import { addToCart } from "../store/slices/cartSlice";
 import { Item } from "../shared/interfaces";
+import { addToCart, removeFromCart } from "../store/slices/cartSlice";
 
-const MAX_RATING = 5;
-const MIN_RATING = 1;
-
-const Product = ({ id, category, title, description, image, price }: Item) => {
-  const [rating, setRating] = useState<number>(0);
-  const [prime, setPrime] = useState<boolean>(false);
+const CheckoutProduct = ({
+  id,
+  category,
+  title,
+  description,
+  image,
+  price,
+  rating,
+  prime,
+  index,
+}: Item) => {
   const dispatch = useDispatch();
 
   const addItemToCart = () => {
@@ -30,23 +34,17 @@ const Product = ({ id, category, title, description, image, price }: Item) => {
     );
   };
 
-  useEffect(() => {
-    setRating(
-      Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
-    );
-    setPrime(Math.random() < 0.5);
-  }, [rating]);
+  const removeItemFromCart = () => {
+    dispatch(removeFromCart(index));
+  };
 
   return (
-    <div className="relative px-0 py-10 sm:px-10 bg-white z-30">
-      <div className="h-full w-4/5 sm:w-full m-auto flex flex-col">
-        <p className="absolute top-2 right-2 text-sm italic text-gray-400 z-30">
-          {category}
-        </p>
+    <div className="grid grid-cols-5 mb-10 mx-5">
+      <Image src={image} height={200} width={200} objectFit="contain" />
 
-        <Image src={image} width={200} height={200} objectFit="contain" />
+      <div className="col-span-3 mx-5">
+        <p>{title}</p>
 
-        <h4 className="my-3 font-semibold">{title}</h4>
         <div className="flex">
           {Array(rating)
             .fill(null)
@@ -55,7 +53,8 @@ const Product = ({ id, category, title, description, image, price }: Item) => {
             ))}
         </div>
 
-        <p className="text-sm my-2 line-clamp-2">{description}</p>
+        <p className="text-xs my-2 line-clamp-3">{description}</p>
+
         <div className="font-semibold mb-2">
           <Currency quantity={price} currency="USD" />
         </div>
@@ -71,13 +70,18 @@ const Product = ({ id, category, title, description, image, price }: Item) => {
             <p className="text-xs text-gray-500">FREE One-Day Delivery</p>
           </div>
         )}
+      </div>
 
-        <button className="mt-auto button" onClick={addItemToCart}>
+      <div className="flex flex-col space-y-2 my-auto justify-self-end">
+        <button className="button" onClick={addItemToCart}>
           Add to cart
+        </button>
+        <button className="button" onClick={removeItemFromCart}>
+          Remove from cart
         </button>
       </div>
     </div>
   );
 };
 
-export default Product;
+export default CheckoutProduct;

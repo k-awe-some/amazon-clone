@@ -5,7 +5,7 @@ type HeaderProps = {};
 
 const Header = (props: HeaderProps) => {
   return (
-    <header>
+    <header className="sticky top-0 z-40">
       <HeaderTop />
       <HeaderBottom />
     </header>
