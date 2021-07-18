@@ -19,6 +19,28 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
 
+const fulfillOrder = async (session) => {
+  // console.log("Fulfilling order", session);
+
+  return app
+    .firestore()
+    .collection("users")
+    .doc(session.metadata.email)
+    .collection("orders")
+    .doc(session.id)
+    .set({
+      amount: session.amount_total / 100,
+      amount_shipping: session.total_details.amount_shipping / 100,
+      images: JSON.parse(session.metadata.images),
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    })
+    .then(() => {
+      console.log(
+        `SUCCESS: Order ${session.id} has been added to the database.`
+      );
+    });
+};
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     // parse incoming request body
@@ -34,5 +56,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       console.log(`ERROR: ${error.message}`);
       return res.status(400).send(`Webhook Error: ${error.message}`);
     }
+
+    // handle completed session
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object;
+
+      // fulfill the order
+      return fulfillOrder(session)
+        .then(() => res.status(200))
+        .catch((error) =>
+          res.status(400).send(`Webhook Error: ${error.message}`)
+        );
+    }
   }
 };
+
+// for non-Next.js way of handling
+// export const config = {
+//   api: {
+//     // disable bodyParser to get request as a string rather than a parsed object
+//     bodyParser: false,
+//     // enable externalResolver so request will be resolved by Stripe
+//     externalResolver: true,
+//   },
+// };
