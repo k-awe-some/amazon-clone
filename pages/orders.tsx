@@ -7,12 +7,13 @@ import Header from "../components/Header";
 import { Order } from "../shared/interfaces";
 import db from "../firebase";
 
+import PaidOrder from "../components/PaidOrder";
+
 type OrdersProps = {
   orders: Order[];
 };
 
 const Orders: React.FC<OrdersProps> = ({ orders }) => {
-  console.log(orders);
   const [session] = useSession();
 
   return (
@@ -25,10 +26,29 @@ const Orders: React.FC<OrdersProps> = ({ orders }) => {
         </h1>
 
         {session ? (
-          <h2>x orders</h2>
+          <h2>
+            {`${orders.length} order`}
+            {orders.length > 1 && <span>s</span>}
+          </h2>
         ) : (
           <h2>Please sign in to see your orders</h2>
         )}
+
+        <div className="mt-5 space-y-4">
+          {orders?.map(
+            ({ id, amount, amountShipping, items, images, timestamp }) => (
+              <PaidOrder
+                key={id}
+                id={id}
+                amount={amount}
+                amountShipping={amountShipping}
+                items={items}
+                images={images}
+                timestamp={timestamp}
+              />
+            )
+          )}
+        </div>
       </main>
     </div>
   );
