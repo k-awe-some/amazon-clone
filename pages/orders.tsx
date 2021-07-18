@@ -93,6 +93,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   );
 
   return {
-    props: { orders },
+    props: { orders, session },
   };
 };
