@@ -71,12 +71,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// for non-Next.js way of handling
-// export const config = {
-//   api: {
-//     // disable bodyParser to get request as a string rather than a parsed object
-//     bodyParser: false,
-//     // enable externalResolver so request will be resolved by Stripe
-//     externalResolver: true,
-//   },
-// };
+// config this webhook endpoint the non-Next.js way
+export const config = {
+  api: {
+    // disable bodyParser to get request as a string rather than a parsed object
+    bodyParser: false,
+    // enable externalResolver so request will be resolved by Stripe
+    externalResolver: true,
+  },
+};
